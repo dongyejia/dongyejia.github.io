@@ -1,0 +1,23 @@
+/* One shared light treatment, including controls rendered inside dialogs. */
+:where(button,a[href]){position:relative}
+:where(button,a[href])::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:8;
+  opacity:0;background:radial-gradient(circle 110px at var(--light-x,50%) var(--light-y,50%),#efffdd70 0,#b6d3a82b 38%,transparent 72%);
+  transition:opacity .22s ease;
+}
+:where(button,a[href])[data-pointer-light]::after{opacity:1}
+.button-dark::after,.contact-pill::after,.filter-bar button.active::after{
+  background:radial-gradient(circle 90px at var(--light-x,50%) var(--light-y,50%),#f5ffe35c 0,#d3ebbd28 42%,transparent 75%);
+  box-shadow:inset 0 1px 0 #ffffff30;
+}
+.project-card::after,.media-item::after{background:radial-gradient(circle 220px at var(--light-x,50%) var(--light-y,50%),#f4ffec4d,transparent 72%)}
+.button,.contact-pill,.icon-button,.filter-bar button,.nav-resume,.hero-play-control,.pdf-controls button{transition:box-shadow .22s ease,transform .22s ease,background .22s ease}
+.button[data-pointer-light],.contact-pill[data-pointer-light],.icon-button[data-pointer-light],.filter-bar button[data-pointer-light],.hero-play-control[data-pointer-light]{box-shadow:0 6px 18px #3d573420,inset 0 1px 0 #ffffff70}
+:where(button,a[href]):focus-visible{outline:2px solid #66845e;outline-offset:5px}
+.about-campus{margin-top:100px;padding:45px 32px 35px;border:1px solid #e4e9df;border-radius:8px;scroll-margin-top:95px}
+.about-campus .section-label{padding-top:0;border-top:0;margin-bottom:38px}
+.about-campus .campus-lead h2{font-size:clamp(30px,3vw,48px)}
+.about-campus .campus-story h3{font-size:18px}
+@media(hover:none){:where(button,a[href])::after{display:none}.button:active,.icon-button:active,.filter-bar button:active,.contact-pill:active{transform:translateY(1px);box-shadow:inset 0 2px 8px #253c2826}}
+@media(max-width:700px){.about-campus{margin-top:60px;padding:28px 19px}.about-campus .campus-lead h2{font-size:30px}.about-campus .campus-story h3{font-size:17px}}
+@media(prefers-reduced-motion:reduce){:where(button,a[href])::after{transition:none}}

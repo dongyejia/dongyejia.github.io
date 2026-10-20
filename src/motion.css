@@ -1,0 +1,29 @@
+/* Content stays readable if animation is disabled or JavaScript fails. */
+[data-reveal],[data-reveal].visible{opacity:1;transform:none;transition:none}
+.opening{position:fixed;inset:0;z-index:90;display:none;place-items:center;background:#e8eee2;color:#354b36;clip-path:inset(0);overflow:hidden}
+.opening-center{width:min(70%,520px);text-align:center}
+.opening-mask{overflow:hidden;padding:15px 0}
+.opening-monogram{font-size:clamp(90px,16vw,220px);font-weight:450;letter-spacing:-.08em;line-height:1}
+.opening-caption{font-size:10px;letter-spacing:.28em;margin-top:22px}
+.opening-line{height:1px;background:#819676;margin-top:35px;transform-origin:left}
+.opening-skip{position:absolute;right:40px;bottom:35px;font-size:11px;color:#5f7457;padding:12px 18px;border:1px solid #a8b99e;border-radius:25px}
+.hero-title-mask{display:block;overflow:hidden;padding:.07em .12em .12em 0;margin-bottom:-.12em}
+.hero-title-mask:last-child{margin-left:clamp(32px,5vw,86px)}
+.hero-title-mask>.hero-title-first,.hero-title-mask>.hero-title-second{display:block;transform-origin:left bottom}
+.hero h1 .hero-title-first{color:#283b32}.hero h1 .hero-title-second{color:#657d6a;letter-spacing:.055em;margin:0}
+.section-word{overflow:hidden;margin:0 0 24px;line-height:.95;pointer-events:none;color:#a8b6a1;font-size:clamp(54px,9.4vw,160px);font-weight:550;letter-spacing:-.065em}
+.section-word>span{display:block;transform-origin:left bottom;padding:.13em .05em .12em 0}
+.about-campus .section-word{font-size:clamp(42px,6vw,90px);margin-bottom:12px}
+.contact-content>.section-word{font-size:clamp(50px,8vw,125px);flex-shrink:0}
+.about>.section-word+.section-label,.work .section-word+.section-label,.strengths>.section-word+.section-label{margin-bottom:42px}
+.contact-section{min-height:950px;max-height:1400px}
+@media(max-width:700px){.section-word{font-size:clamp(42px,11vw,74px);margin-bottom:16px;letter-spacing:-.06em}.opening-caption{font-size:8px;letter-spacing:.12em}.opening-skip{right:20px;bottom:24px}.hero-title-mask:last-child{margin-left:24px}.hero h1 .hero-title-second{letter-spacing:.01em}.contact-section{min-height:820px}.contact-content>.section-word{font-size:12vw}}
+@media(prefers-reduced-motion:reduce){html:not([data-motion="full"]) .opening{display:none!important}html:not([data-motion="full"]) .section-word>span,html:not([data-motion="full"]) .hero-title-mask>span{transform:none!important}html:not([data-motion="full"]) .hero-background{transform:none!important}}
+
+.motion-toggle{position:fixed;right:20px;bottom:18px;z-index:45;display:flex;align-items:center;gap:7px;background:#f9fcf4e8;backdrop-filter:blur(10px);border:1px solid #d7e0d0;border-radius:30px;padding:9px 13px;font-size:9px;color:#617459;box-shadow:0 3px 15px #2c442012}
+.motion-indicator{width:5px;height:5px;border-radius:50%;background:#a5afa0}.motion-toggle[aria-pressed=true] .motion-indicator{background:#648653}
+html[data-motion=full] .hero-background video{display:block}
+html[data-motion=full] .hero-play-control{display:flex}
+
+.motion-controls{position:fixed;right:20px;bottom:18px;z-index:45;display:flex;gap:7px}
+.motion-controls .motion-toggle{position:relative;right:auto;bottom:auto;z-index:auto}

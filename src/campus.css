@@ -1,0 +1,17 @@
+.campus-section{position:relative;background:linear-gradient(135deg,#fff,#f2f5ef);overflow:hidden}
+.campus-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:9%;align-items:start}
+.campus-lead h2{margin-top:24px}.campus-lead>p{font-size:13px;line-height:2;color:#7b8777;margin-top:25px}
+.campus-stories{padding-top:5px}.campus-story{display:grid;grid-template-columns:36px 1fr;gap:20px;padding:29px 0;border-top:1px solid #dfe6d9}
+.campus-number{font-size:18px;font-weight:300;color:#99a992}.campus-story h3{font-size:20px;font-weight:550;line-height:1.6;margin:12px 0}
+.campus-story p{font-size:12px;line-height:2;color:#7d8779}.campus-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.campus-tags span{padding:6px 10px;background:#e9eee5;color:#74856c;font-size:9px;border-radius:3px}
+.campus-sculpture{position:relative;height:290px;margin-top:20px;perspective:900px}
+.campus-disc{position:absolute;left:4%;top:40px;width:190px;height:190px;border-radius:50%;background:repeating-radial-gradient(circle,#d4dfca 0 2px,#e4ecdc 3px 6px);transform:rotateY(24deg) rotateX(14deg);box-shadow:4px 4px 0 #aabb9b,9px 10px 0 #b4c3a8,20px 24px 34px #465d3433}
+.campus-note{position:absolute;left:24%;top:22px;font-family:Georgia,serif;font-size:160px;line-height:1;color:#657c56;text-shadow:2px 3px #aebea1,5px 6px #d0dcc6,12px 18px 15px #36492c33;transform:rotate(-13deg)}
+.campus-block{position:absolute;width:120px;height:100px;left:40%;top:153px;background:linear-gradient(140deg,#f7faef,#c5d3b7);transform:rotateY(-28deg) rotateX(20deg) rotateZ(8deg);box-shadow:5px 6px #a7b797,9px 11px #93a682,20px 27px 28px #405b3130;border:1px solid #ffffff8f}
+.campus-sculpture-caption{position:absolute;bottom:0;left:0;font-size:8px;letter-spacing:1.7px;color:#94a18d}
+.stage-winter .object-back,.stage-animation .object-back{width:53%;height:65%;top:13%;left:4%}
+.stage-winter .object-front,.stage-animation .object-front{height:57%;width:79%;top:32%;right:-4%}
+.stage-animation .stage-halo{background:radial-gradient(circle at 30% 25%,#fff,#c7d8be)}
+.library-filters{margin:20px 0 28px}
+@media(min-width:701px) and (max-width:1100px){.nav-inner{gap:18px}.nav-links{gap:18px;margin-right:6px}.nav-links a,.nav-resume{font-size:11px}.campus-layout{gap:5%}.campus-story h3{font-size:18px}}
+@media(max-width:700px){.campus-layout{grid-template-columns:1fr;gap:25px}.campus-lead h2{font-size:35px}.campus-sculpture{height:235px;max-width:340px;margin:0 auto}.campus-disc{width:150px;height:150px;top:25px}.campus-note{font-size:130px;top:10px}.campus-block{top:120px;width:100px;height:80px}.campus-story{gap:12px;grid-template-columns:25px 1fr;padding:24px 0}.campus-story h3{font-size:18px}.campus-story p{font-size:12px}}

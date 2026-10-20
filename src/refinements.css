@@ -1,0 +1,60 @@
+/* Editorial typography and quiet, music-inspired linework. */
+.hero h1.hero-title {
+  font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+  font-size: clamp(50px, 5.4vw, 96px);
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: .035em;
+  width: fit-content;
+}
+.hero-title > span { display: block; }
+.hero h1 > .hero-title-first { color: #283b32; }
+.hero h1 > .hero-title-second {
+  margin-left: clamp(32px, 5vw, 86px);
+  color: #657d6a;
+  letter-spacing: .055em;
+}
+.hero-intro { margin-top: 25px; }
+.about, .work, .strengths { position: relative; isolation: isolate; }
+.about::before, .work::before, .strengths::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('/assets/quiet-lines.svg') no-repeat right top / min(100%, 1100px) auto;
+  opacity: .46;
+}
+.about::before { background-position: right 12%; }
+.work { background-color: #f3f5f2; }
+.work::before { background-position: left 60px; opacity: .4; }
+.strengths::before { background-position: right center; opacity: .48; }
+.strength-card { background: #f5f7f4e8; }
+.contact-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/assets/quiet-lines.svg') no-repeat center / cover;
+  opacity: .45;
+}
+.project-sound .project-art > img { opacity: 1; filter: none; }
+.project-sound .project-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #10221966, transparent 40%, #10221999);
+  pointer-events: none;
+}
+.project-sound .project-art-label { color: #f2f5ed; }
+.project-sound .project-open { z-index: 2; }
+.project-sound .sound-art { z-index: 1; align-items: flex-start; justify-content: flex-end; padding: 30px; pointer-events: none; }
+.project-sound .sound-art > span:first-child { color: #fff; font-family: "Songti SC", "SimSun", serif; font-size: 25px; }
+.project-sound .waveform { display: none; }
+.project-sound .sound-caption { color: #e0e8de; margin-top: 13px; }
+@media(max-width:700px) {
+  .hero h1.hero-title { font-size: clamp(29px, 8.5vw, 54px); line-height: 1.55; letter-spacing: .01em; }
+  .hero h1 > .hero-title-second { margin-left: 24px; letter-spacing: .01em; }
+  .about::before, .work::before, .strengths::before { background-size: 750px auto; opacity: .3; }
+  .project-sound .sound-art { padding: 24px; }
+  .project-sound .sound-art > span:first-child { font-size: 21px; }
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "id": "video-1",
+    "title": "《太平年》配乐",
+    "kind": "video",
+    "src": "/media/video-1.mp4",
+    "poster": "/assets/video-1.jpg"
+  },
+  {
+    "id": "video-2",
+    "title": "修红精华（动漫场景）",
+    "kind": "video",
+    "src": "/media/video-2.mp4",
+    "poster": "/assets/video-2.jpg"
+  },
+  {
+    "id": "video-3",
+    "title": "修红精华（山城火锅场景）",
+    "kind": "video",
+    "src": "/media/video-3.mp4",
+    "poster": "/assets/video-3.jpg"
+  },
+  {
+    "id": "video-4",
+    "title": "分手后她吃下一颗逆袭软糖",
+    "kind": "video",
+    "src": "/media/video-4.mp4",
+    "poster": "/assets/video-4.jpg"
+  },
+  {
+    "id": "video-5",
+    "title": "初棉卫生巾",
+    "kind": "video",
+    "src": "/media/video-5.mp4",
+    "poster": "/assets/video-5.jpg"
+  },
+  {
+    "id": "video-6",
+    "title": "大疆 action6产品宣传",
+    "kind": "video",
+    "src": "/media/video-6.mp4",
+    "poster": "/assets/video-6.jpg"
+  },
+  {
+    "id": "video-7",
+    "title": "当镜头对准你，整个冬天都暖了",
+    "kind": "video",
+    "src": "/media/video-7.mp4",
+    "poster": "/assets/video-7.jpg"
+  },
+  {
+    "id": "audio-1",
+    "title": "恋曲1990（改编）",
+    "kind": "audio",
+    "src": "/media/audio-1.mp3",
+    "poster": null
+  },
+  {
+    "id": "video-8",
+    "title": "日养公式产品宣传",
+    "kind": "video",
+    "src": "/media/video-8.mp4",
+    "poster": "/assets/video-8.jpg"
+  },
+  {
+    "id": "audio-2",
+    "title": "沁园春 益予童行",
+    "kind": "audio",
+    "src": "/media/audio-2.mp3",
+    "poster": null
+  },
+  {
+    "id": "audio-3",
+    "title": "潋滟晴光",
+    "kind": "audio",
+    "src": "/media/audio-3.mp3",
+    "poster": null
+  },
+  {
+    "id": "video-9",
+    "title": "珀莱雅×青澜子衿 项目宣传片",
+    "kind": "video",
+    "src": "/media/video-9.mp4",
+    "poster": "/assets/video-9.jpg"
+  },
+  {
+    "id": "video-10",
+    "title": "珀莱雅双11誓师大会先导片",
+    "kind": "video",
+    "src": "/media/video-10.mp4",
+    "poster": "/assets/video-10.jpg"
+  },
+  {
+    "id": "video-11",
+    "title": "花木兰皮影戏",
+    "kind": "video",
+    "src": "/media/video-11.mp4",
+    "poster": "/assets/video-11.jpg"
+  },
+  {
+    "id": "audio-4",
+    "title": "褪色的雨",
+    "kind": "audio",
+    "src": "/media/audio-4.mp3",
+    "poster": null
+  },
+  {
+    "id": "audio-5",
+    "title": "风里的和解",
+    "kind": "audio",
+    "src": "/media/audio-5.mp3",
+    "poster": null
+  }
+]
