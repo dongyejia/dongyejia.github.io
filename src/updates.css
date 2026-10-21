@@ -20,3 +20,5 @@
 
 .contact-layout{width:100%;text-align:left}.contact-details{justify-content:start;align-items:start}.contact-details .micro-label{font-size:9px}
 
+
+@media (hover:hover) and (pointer:fine){.practice-grid{cursor:grab;user-select:none}.practice-grid.is-dragging,.practice-grid.is-dragging *{cursor:grabbing!important}.practice-grid.is-dragging{scroll-snap-type:none;scroll-behavior:auto}}

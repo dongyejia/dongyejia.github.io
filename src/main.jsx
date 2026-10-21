@@ -11,6 +11,7 @@ import './interaction.css';
 import './motion.css';
 import { usePortfolioMotion } from './usePortfolioMotion';
 import { usePointerLight } from './usePointerLight';
+import { useDragScroll } from './useDragScroll';
 const PdfViewer = React.lazy(() => import('./PdfViewer'));
 
 function Icon({ name = 'arrow', size = 20, ...props }) {
@@ -88,6 +89,7 @@ function ProjectArtwork({ item }) {
 
 function App() {
   usePointerLight();
+  useDragScroll();
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState('全部作品');
   const [project, setProject] = useState(null);
@@ -146,7 +148,7 @@ function App() {
       </div></section>
 
         <div className="experience" data-reveal><div className="experience-title"><span className="micro-label">PROFESSIONAL PRACTICE / 企业实践</span><h3>每一段经历，<br />都成为新的视角。</h3><p>武汉音乐学院 · 音乐教育<br />本科 2021—2025 / 硕士 2025—2028（在读）</p></div><div className="timeline">{profile.experience.map(item => <div className="timeline-row" key={item.company}><span className="timeline-date">{item.date}</span><div><h4>{item.company}<span>{item.role}</span></h4><p>{item.detail}</p><ul className="experience-highlights">{item.highlights.map(([label, text]) => <li key={label}><strong>{label}</strong><span>{text}</span></li>)}</ul></div></div>)}</div></div>
-        <section className="project-practice" aria-labelledby="project-practice-title"><div className="creative-orbit" aria-hidden="true"><i /><i /><i /><span>✳</span></div><div className="practice-heading"><div><span className="micro-label">PROJECT EXPERIENCE / 项目经历</span><h3 id="project-practice-title">在真实项目中<br /><span className="muted">把能力做具体</span></h3></div><p>数据评测、内容运营与音乐制作，<br />以及从零搭建音乐教育产品的探索。</p></div><p className="practice-scroll-hint">向右探索项目 <span aria-hidden="true">⟶</span></p><div className="practice-grid" tabIndex={0} role="region" aria-label="项目经历，横向滚动查看更多">{projectExperience.map(item => <article className="practice-card" key={item.id}><div className="practice-top"><span className="micro-label">{item.role}</span><span className="practice-number">{item.number}</span></div><h4>{item.company}</h4><h5>{item.title}</h5><p className="practice-summary">{item.summary}</p><div className="practice-outcomes">{item.outcomes.map(outcome => <span key={outcome}>{outcome}</span>)}</div><dl className="practice-details">{item.work.map(([label,text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>{item.projectId && <button className="practice-link" onClick={() => setProject(projects.find(project => project.id === item.projectId))}>查看项目详情 <Icon name="diagonal" size={15} /></button>}</article>)}</div></section>
+        <section className="project-practice" aria-labelledby="project-practice-title"><div className="creative-orbit" aria-hidden="true"><i /><i /><i /><span>✳</span></div><div className="practice-heading"><div><span className="micro-label">PROJECT EXPERIENCE / 项目经历</span><h3 id="project-practice-title">在真实项目中<br /><span className="muted">把能力做具体</span></h3></div><p>数据评测、内容运营与音乐制作，<br />以及从零搭建音乐教育产品的探索。</p></div><p className="practice-scroll-hint">按住卡片，左右拖动 <span aria-hidden="true">⟶</span></p><div className="practice-grid" tabIndex={0} role="region" aria-label="项目经历，可按住拖动或横向滚动查看更多">{projectExperience.map(item => <article className="practice-card" key={item.id}><div className="practice-top"><span className="micro-label">{item.role}</span><span className="practice-number">{item.number}</span></div><h4>{item.company}</h4><h5>{item.title}</h5><p className="practice-summary">{item.summary}</p><div className="practice-outcomes">{item.outcomes.map(outcome => <span key={outcome}>{outcome}</span>)}</div><dl className="practice-details">{item.work.map(([label,text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>{item.projectId && <button className="practice-link" onClick={() => setProject(projects.find(project => project.id === item.projectId))}>查看项目详情 <Icon name="diagonal" size={15} /></button>}</article>)}</div></section>
       </section>
 
       <section id="work" className="work section"><div className="container">
@@ -177,3 +179,4 @@ function App() {
 createRoot(document.getElementById('root')).render(<App />);
 
 import './updates.css';
+
