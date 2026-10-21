@@ -17,7 +17,7 @@ export function useDragScroll(autoEnabled = true) {
       const paused = !autoEnabled || !visible || document.hidden || gesture || rail.matches(':hover,:focus-within') || document.querySelector('[role="dialog"]');
       if (!paused) {
         const max = rail.scrollWidth - rail.clientWidth;
-        position = Math.max(0, Math.min(max, position + direction * elapsed * .022));
+        position = Math.max(0, Math.min(max, position + direction * elapsed * .05));
         rail.scrollLeft = position;
         if (position >= max) direction = -1;
         if (position <= 0) direction = 1;
@@ -84,3 +84,4 @@ export function useDragScroll(autoEnabled = true) {
     };
   }, [autoEnabled]);
 }
+
