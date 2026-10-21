@@ -90,7 +90,7 @@ function ProjectArtwork({ item }) {
 function App() {
   usePointerLight();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [filter, setFilter] = useState('全部作品');
+  const [filter, setFilter] = useState('精选作品');
   const [project, setProject] = useState(null);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [pdf, setPdf] = useState(null);
@@ -111,7 +111,7 @@ function App() {
     else { videoRef.current.pause(); setPaused(true); }
   }
   const libraryMedia = media.filter(item => item.kind === mediaKind);
-  const shownProjects = filter === '全部作品' ? projects : projects.filter(p => p.category === filter);
+  const shownProjects = filter === '精选作品' ? projects : projects.filter(p => p.category === filter);
   return <>
     <div className="opening"><div className="opening-center" aria-hidden="true"><div className="opening-mask"><div className="opening-monogram">DYJ</div></div><div className="opening-caption">MUSIC · EDUCATION · CREATIVE TECHNOLOGY</div><div className="opening-line" /></div><button className="opening-skip" onClick={() => window.dispatchEvent(new Event('portfolio:skip-opening'))}>跳过开场 ↗</button></div>
     <div className="motion-controls">{allowMotion && <button className="motion-toggle" onClick={() => { window.history.replaceState(null, '', '#home'); window.scrollTo({ top: 0, behavior: 'instant' }); setOpeningRun(value => value + 1); }}>重播开场 ↗</button>}<button className="motion-toggle" aria-pressed={allowMotion} onClick={() => setAllowMotion(value => { sessionStorage.setItem('portfolio-motion', String(!value)); return !value; })}><span className="motion-indicator" />动态效果：{allowMotion ? '开启' : '关闭'}</button></div>
@@ -155,7 +155,7 @@ function App() {
       <section id="work" className="work section"><div className="container">
         <div className="section-word" aria-hidden="true"><span>SELECTED WORK</span></div><div className="section-label" data-reveal><span>02 / SELECTED WORK</span><span>从想法，到真实体验</span></div>
         <div className="section-heading" data-reveal><h2>思考的痕迹<br /><span className="muted">也是行动的答案</span></h2><p>音乐教育、产品设计与 AI 音视频创作。<br />不同的表达，同样关注真实的体验。</p></div>
-        <div className="filter-bar" role="group" aria-label="筛选作品">{['全部作品', 'AI 产品', 'AIGC 创作'].map(label => <button key={label} className={filter === label ? 'active' : ''} aria-pressed={filter === label} onClick={() => setFilter(label)}>{label}{label === '全部作品' && <span>{String(projects.length).padStart(2, '0')}</span>}</button>)}</div>
+        <div className="filter-bar" role="group" aria-label="筛选作品">{['精选作品', 'AI 产品', 'AIGC 创作'].map(label => <button key={label} className={filter === label ? 'active' : ''} aria-pressed={filter === label} onClick={() => setFilter(label)}>{label}{label === '精选作品' && <span>{String(projects.length).padStart(2, '0')}</span>}</button>)}</div>
         {['AI 产品', 'AIGC 创作'].map(category => {
           const items = shownProjects.filter(item => item.category === category);
           return items.length > 0 && <div className={`work-group ${category === 'AIGC 创作' ? 'aigc-group' : 'product-group'}`} key={category}><div className="work-group-label"><span>{category === 'AIGC 创作' ? 'AIGC / MOTION & IMAGINATION' : 'AI / PRODUCT & EXPERIENCE'}</span><span>{category}</span></div><div className={`project-grid ${category === 'AIGC 创作' ? 'aigc-grid' : ''}`}>{items.map(item => <button className={`project-card project-${item.id}`} key={item.id} onClick={() => setProject(item)} data-reveal><ProjectArtwork item={item} /><div className="project-info"><div><span className="project-overline">{item.category} <span> / </span> {item.year}</span><h3>{item.title}</h3><p>{item.subtitle}</p></div><span className="project-number">{item.number}</span></div></button>)}</div></div>;

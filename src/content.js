@@ -59,6 +59,12 @@ export const projects = [
     description: '围绕修红精华展开的动漫场景视频创作，探索 AIGC 在产品视觉与场景化叙事中的表达。完整作品可在站内播放。',
     facts: [['创作方向', '产品影像 / 动漫场景'], ['作品形式', '视频'], ['观看方式', '站内视频播放']], mediaId: 'video-2', stageCaption: '产品与想象，相遇',
   },
+  {
+    id: 'faruxue', number: '06', title: '发如雪', subtitle: '以音乐与影像，铺陈古风意境。', category: 'AIGC 创作', type: 'AIGC / MUSIC & FILM', year: '2026',
+    image: '/assets/video-1.jpg', alt: '发如雪视频作品画面',
+    description: '音乐与影像创作作品《发如雪》，完整视频可在站内播放。',
+    facts: [['创作方向', '音乐 / 视听表达'], ['作品形式', '视频'], ['观看方式', '站内视频播放']], mediaId: 'video-1', stageCaption: '声与画，入意境',
+  },
 ];
 
 export const campus = [
