@@ -1,9 +1,29 @@
 import { useEffect } from 'react';
 
-export function useDragScroll() {
+export function useDragScroll(autoEnabled = true) {
   useEffect(() => {
     const rail = document.querySelector('.practice-grid');
     if (!rail) return;
+    let visible = false;
+    let frame = 0;
+    let previous = 0;
+    let direction = 1;
+    let position = rail.scrollLeft;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; previous = 0; }, { threshold: .15 });
+    observer.observe(rail);
+    const animate = time => {
+      const elapsed = previous ? Math.min(time - previous, 50) : 0;
+      previous = time;
+      const paused = !autoEnabled || !visible || document.hidden || gesture || rail.matches(':hover,:focus-within') || document.querySelector('[role="dialog"]');
+      if (!paused) {
+        const max = rail.scrollWidth - rail.clientWidth;
+        position = Math.max(0, Math.min(max, position + direction * elapsed * .022));
+        rail.scrollLeft = position;
+        if (position >= max) direction = -1;
+        if (position <= 0) direction = 1;
+      } else position = rail.scrollLeft;
+      frame = requestAnimationFrame(animate);
+    };
     let gesture = null;
     let suppressClick = false;
     const down = event => {
@@ -40,6 +60,7 @@ export function useDragScroll() {
       event.stopImmediatePropagation();
     };
     const preventNativeDrag = event => event.preventDefault();
+    frame = requestAnimationFrame(animate);
     rail.addEventListener('pointerdown', down);
     window.addEventListener('pointermove', move, { passive: false });
     window.addEventListener('pointerup', finish);
@@ -49,6 +70,8 @@ export function useDragScroll() {
     rail.addEventListener('click', click, true);
     rail.addEventListener('dragstart', preventNativeDrag);
     return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
       finish({});
       rail.removeEventListener('pointerdown', down);
       window.removeEventListener('pointermove', move);
@@ -59,5 +82,5 @@ export function useDragScroll() {
       rail.removeEventListener('click', click, true);
       rail.removeEventListener('dragstart', preventNativeDrag);
     };
-  }, []);
+  }, [autoEnabled]);
 }
