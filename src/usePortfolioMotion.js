@@ -66,7 +66,7 @@ export function usePortfolioMotion(dependencies, enabled, openingRun) {
     if (!enabled) return;
     const media = gsap.matchMedia();
     media.add('(min-width: 0px)', () => {
-      document.querySelectorAll('.project-grid,.media-grid,.strength-grid,.practice-grid').forEach(grid => {
+      document.querySelectorAll('.project-grid,.media-grid,.strength-grid').forEach(grid => {
         // Row-sized batches keep lower rows from revealing before the visitor reaches them.
         const cards = [...grid.children];
         const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
