@@ -45,7 +45,7 @@ export function usePortfolioMotion(dependencies, enabled, openingRun) {
         if (heading) gsap.fromTo(heading, { y: 65, clipPath: 'inset(0 0 100% 0)' }, { y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1.7, ease,
           scrollTrigger: { trigger: heading, start: 'top 92%', once: true } });
       });
-      document.querySelectorAll('.portrait-card,.campus-sculpture').forEach(element => {
+      document.querySelectorAll('.portrait-card,.campus-sculpture,.campus-photo-frame').forEach(element => {
         gsap.fromTo(element, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.8, ease,
           scrollTrigger: { trigger: element, start: 'top 85%', once: true } });
       });
@@ -66,7 +66,7 @@ export function usePortfolioMotion(dependencies, enabled, openingRun) {
     if (!enabled) return;
     const media = gsap.matchMedia();
     media.add('(min-width: 0px)', () => {
-      document.querySelectorAll('.project-grid,.media-grid,.strength-grid').forEach(grid => {
+      document.querySelectorAll('.project-grid,.media-grid,.strength-grid,.practice-grid').forEach(grid => {
         // Row-sized batches keep lower rows from revealing before the visitor reaches them.
         const cards = [...grid.children];
         const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;

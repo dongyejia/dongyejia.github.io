@@ -2,7 +2,7 @@
 .hero h1.hero-title {
   font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
   font-size: clamp(50px, 5.4vw, 96px);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.42;
   letter-spacing: .035em;
   width: fit-content;
