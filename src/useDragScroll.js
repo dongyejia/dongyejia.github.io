@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 export function useDragScroll(autoEnabled = true) {
   useEffect(() => {
+    // Touch devices use native swipe scrolling without a continuous animation loop.
+    if (window.matchMedia('(max-width: 700px), (pointer: coarse)').matches) return;
     const rail = document.querySelector('.practice-grid');
     if (!rail) return;
     let visible = false;

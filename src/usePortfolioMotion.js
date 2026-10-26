@@ -19,6 +19,17 @@ export function usePortfolioMotion(dependencies, enabled, openingRun) {
       const desktop = window.matchMedia('(min-width: 701px)').matches;
       const overlay = document.querySelector('.opening');
       const atHome = window.scrollY < 100 && (!location.hash || location.hash === '#home');
+      if (!desktop) {
+        // Mobile content is never masked: fast scrolling cannot leave it half revealed.
+        if (atHome) {
+          gsap.set(overlay, { display: 'grid', autoAlpha: 1 });
+          opening = gsap.timeline({ defaults: { ease }, onComplete: () => gsap.set(overlay, { display: 'none' }) });
+          opening.fromTo('.opening-monogram', { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .7 })
+            .to(overlay, { yPercent: -100, duration: .85, ease: 'power3.inOut' }, .8)
+            .fromTo('.hero-title-first,.hero-title-second', { y: 20 }, { y: 0, duration: .8, stagger: .12 }, 1.1);
+        }
+        return;
+      }
       if (atHome) {
         gsap.set(overlay, { display: 'grid', autoAlpha: 1 });
         opening = gsap.timeline({ defaults: { ease }, onComplete: () => {
@@ -64,6 +75,7 @@ export function usePortfolioMotion(dependencies, enabled, openingRun) {
 
   useLayoutEffect(() => {
     if (!enabled) return;
+    if (window.matchMedia('(max-width: 700px)').matches) return;
     const media = gsap.matchMedia();
     media.add('(min-width: 0px)', () => {
       document.querySelectorAll('.project-grid,.media-grid,.strength-grid').forEach(grid => {

@@ -96,7 +96,9 @@ function App() {
   const [pdf, setPdf] = useState(null);
   const [allMedia, setAllMedia] = useState(false);
   const [mediaKind, setMediaKind] = useState('video');
-  const [paused, setPaused] = useState(false);
+  const [mobileView] = useState(() => window.matchMedia('(max-width: 700px), (pointer: coarse)').matches);
+  const [backgroundRequested, setBackgroundRequested] = useState(false);
+  const [paused, setPaused] = useState(() => window.matchMedia('(max-width: 700px), (pointer: coarse)').matches);
   const [allowMotion, setAllowMotion] = useState(() => sessionStorage.getItem('portfolio-motion') !== 'false');
   const [railPaused, setRailPaused] = useState(false);
   useDragScroll(allowMotion && !railPaused);
@@ -105,7 +107,26 @@ function App() {
   const [mediaError, setMediaError] = useState(false);
   usePortfolioMotion([filter, allMedia, mediaKind], allowMotion, openingRun);
   useEffect(() => setMediaError(false), [selectedMedia]);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || document.hidden) video.pause();
+      else if (!mobileView && allowMotion) video.play().catch(() => setPaused(true));
+    });
+    observer.observe(video);
+    const onVisibility = () => { if (document.hidden) video.pause(); };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => { observer.disconnect(); document.removeEventListener('visibilitychange', onVisibility); };
+  }, [mobileView, allowMotion]);
+  useEffect(() => {
+    if (backgroundRequested) {
+      videoRef.current?.load();
+      videoRef.current?.play().catch(() => setPaused(true));
+    }
+  }, [backgroundRequested]);
   function toggleVideo() {
+    if (mobileView && !backgroundRequested) { setBackgroundRequested(true); return; }
     if (!videoRef.current) return;
     if (videoRef.current.paused) { videoRef.current.play().then(() => setPaused(false)).catch(() => setPaused(true)); }
     else { videoRef.current.pause(); setPaused(true); }
@@ -125,14 +146,14 @@ function App() {
 
     <main id="main">
       <section id="home" className="hero">
-        <div className="hero-background" aria-hidden="true"><video ref={videoRef} autoPlay={allowMotion} preload={allowMotion ? 'metadata' : 'none'} loop muted playsInline poster="/assets/hero-poster.jpg" onError={() => setPaused(true)} onPlay={() => setPaused(false)}>{allowMotion && <source src="/assets/hero.mp4" type="video/mp4" />}</video><div className="hero-veil" /></div>
+        <div className="hero-background" aria-hidden="true"><video ref={videoRef} autoPlay={allowMotion && !mobileView} preload={allowMotion && !mobileView ? 'metadata' : 'none'} loop muted playsInline poster="/assets/hero-poster.jpg" onError={() => setPaused(true)} onPlay={() => setPaused(false)}>{(allowMotion && !mobileView || backgroundRequested) && <source src="/assets/hero.mp4" type="video/mp4" />}</video><div className="hero-veil" /></div>
         <div className="hero-content container">
           <div className="hero-eyebrow"><span className="status-dot" /> MASTER’S STUDENT <span className="eyebrow-divider" /> MUSIC × TECHNOLOGY</div>
           <h1 className="hero-title"><span className="hero-title-mask"><span className="hero-title-first">让技术有温度</span></span><span className="hero-title-mask"><span className="hero-title-second">让想法有回响</span></span></h1>
           <p className="hero-intro">你好，我是董烨嘉。<br className="mobile-break" />一名探索音乐教育与 AI 的硕士研究生。<br />以产品思维连接技术与人，<br className="mobile-break" />把创意变成可以体验的作品。</p>
           <div className="hero-actions"><a className="button button-dark" href="#work">探索我的作品 <Icon name="arrow" size={17} /></a><a className="text-link" href="#about">认识我 <Icon name="diagonal" size={16} /></a></div>
         </div>
-        <div className="hero-footer container"><div className="hero-note"><span className="micro-label">A DIFFERENT PERSPECTIVE</span><span>产品的理性，创作的感性。</span></div><a href="#about" className="scroll-hint">向下探索 <span>↓</span></a><button className="hero-play-control" onClick={toggleVideo} aria-label={paused ? '播放背景视频' : '暂停背景视频'}><Icon name={paused ? 'play' : 'pause'} size={15} /><span>影像选自个人作品</span></button></div>
+        <div className="hero-footer container"><div className="hero-note"><span className="micro-label">A DIFFERENT PERSPECTIVE</span><span>产品的理性，创作的感性。</span></div><a href="#about" className="scroll-hint">向下探索 <span>↓</span></a><button className="hero-play-control" onClick={toggleVideo} aria-label={paused ? '播放背景视频' : '暂停背景视频'}><Icon name={paused ? 'play' : 'pause'} size={15} /><span>{mobileView && paused ? '点击播放背景影像' : '影像选自个人作品'}</span></button></div>
       </section>
 
       <section id="about" className="about section container">
@@ -144,7 +165,7 @@ function App() {
         <div className="stats" data-reveal>{[['02', '推动产品功能上线', '用户调研 → PRD → 交付'], ['100+', '多模态测试数据', '理解 · 识别 · 推理'], ['07', '音频质量评测维度', '从听感走向标准'], ['80+', '内容策划与发布', '策略 · 创作 · 分发']].map(([value, label, detail]) => <div className="stat" key={label}><strong>{value}</strong><span>{label}</span><small>{detail}</small></div>)}</div>
       <section id="campus" className="campus-section about-campus" aria-labelledby="campus-heading"><div><div className="section-word" aria-hidden="true"><span>ON CAMPUS</span></div>
         <div className="section-label" data-reveal><span>ON CAMPUS</span><span>学习、研究与创作</span></div>
-        <div className="campus-layout"><div className="campus-lead" data-reveal><span className="micro-label">WUHAN CONSERVATORY OF MUSIC</span><h2 id="campus-heading">以音乐为起点<br /><span className="muted">让探索延伸</span></h2><p>武汉音乐学院 · 音乐教育<br />硕士研究生在读</p><figure className="campus-photo"><div className="campus-photo-frame"><img src="/assets/campus-performance.jpg" alt="董烨嘉在钢琴伴奏下进行舞台演唱" loading="lazy" decoding="async" /></div><figcaption><span>ON STAGE / 在音乐现场</span><span>音乐学习，也发生在舞台上。</span></figcaption></figure></div>
+        <div className="campus-layout"><div className="campus-lead" data-reveal><span className="micro-label">WUHAN CONSERVATORY OF MUSIC</span><h2 id="campus-heading">以音乐为起点<br /><span className="muted">让探索延伸</span></h2><p>武汉音乐学院 · 音乐教育<br />硕士研究生在读</p><figure className="campus-photo"><div className="campus-photo-frame"><img src="/assets/campus-performance.webp" alt="董烨嘉在钢琴伴奏下进行舞台演唱" loading="lazy" decoding="async" /></div><figcaption><span>ON STAGE / 在音乐现场</span><span>音乐学习，也发生在舞台上。</span></figcaption></figure></div>
         <div className="campus-stories">{campus.map(item => <article className="campus-story" key={item.number} data-reveal><span className="campus-number">{item.number}</span><div><span className="micro-label">{item.label}</span><h3>{item.title}</h3><p>{item.detail}</p><div className="campus-tags">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div></article>)}</div></div>
       </div></section>
 
@@ -171,7 +192,7 @@ function App() {
         ['wave', '04', '让音乐，走近学习者。', '音乐教育与创意表达', '结合音乐教育训练与高中教学经历，关注音乐欣赏、课堂体验与艺术实践；将词曲编创和 AI 音视频工具用于探索更丰富的音乐学习方式。', ['音乐教学', '艺术实践', 'AI 音乐创作']],
       ].map(([icon, num, title, label, text, tags]) => <article className="strength-card" data-reveal key={num}><div className="strength-top"><Icon name={icon} size={29} /><span>{num}</span></div><span className="strength-label">{label}</span><h3>{title}</h3><p>{text}</p><div className="strength-tags">{tags.map(tag => <span key={tag}>{tag}</span>)}</div></article>)}</div></section>
 
-      <section id="contact" className="contact-section"><div className="contact-glow" /><div className="container contact-content"><div className="section-word" aria-hidden="true"><span>LET’S CONNECT</span></div><div className="section-label"><span>04 / LET’S CONNECT</span><span><span className="status-dot" /> 期待新的合作与机会</span></div><div className="contact-main" data-reveal><span className="small-kicker">下一个有意思的产品，或许始于一次对话。</span><h2>让好想法，<br /><span>有下一步。</span></h2><div className="contact-layout"><div className="contact-details"><div><span className="micro-label">EMAIL / 邮箱</span><p>{profile.email}</p></div><div><span className="micro-label">PHONE / 手机</span><p>+86 {profile.phone.slice(0, 3)} {profile.phone.slice(3, 7)} {profile.phone.slice(7)}<small>微信同号</small></p></div></div><figure className="wechat-card"><img src="/assets/wechat-qr.jpg" alt="董烨嘉的微信二维码，扫码添加微信" width="1072" height="1416" loading="eager" decoding="async" /><figcaption>扫一扫，微信联系</figcaption></figure></div></div><footer><a href="#home" className="wordmark"><BrandMark /></a><span>© {new Date().getFullYear()} 董烨嘉 · 用思考构建，用创作表达。</span><a href="#home">回到顶部 ↑</a></footer></div></section>
+      <section id="contact" className="contact-section"><div className="contact-glow" /><div className="container contact-content"><div className="section-word" aria-hidden="true"><span>LET’S CONNECT</span></div><div className="section-label"><span>04 / LET’S CONNECT</span><span><span className="status-dot" /> 期待新的合作与机会</span></div><div className="contact-main" data-reveal><span className="small-kicker">下一个有意思的产品，或许始于一次对话。</span><h2>让好想法，<br /><span>有下一步。</span></h2><div className="contact-layout"><div className="contact-details"><div><span className="micro-label">EMAIL / 邮箱</span><p>{profile.email}</p></div><div><span className="micro-label">PHONE / 手机</span><p>+86 {profile.phone.slice(0, 3)} {profile.phone.slice(3, 7)} {profile.phone.slice(7)}<small>微信同号</small></p></div></div><figure className="wechat-card"><img src="/assets/wechat-qr.webp" alt="董烨嘉的微信二维码，扫码添加微信" width="1072" height="1416" loading="eager" decoding="async" /><figcaption>扫一扫，微信联系</figcaption></figure></div></div><footer><a href="#home" className="wordmark"><BrandMark /></a><span>© {new Date().getFullYear()} 董烨嘉 · 用思考构建，用创作表达。</span><a href="#home">回到顶部 ↑</a></footer></div></section>
     </main>
 
     {project && <Modal title={project.title} onClose={() => setProject(null)} wide><div className="project-dialog"><span className="small-kicker">{project.type} / {project.year}</span><h2>{project.title}</h2><p className="dialog-intro">{project.description}</p><div className="dialog-facts">{project.facts.map(([label, value]) => <div key={label}><small>{label}</small><span>{value}</span></div>)}</div><img className="dialog-image" src={project.detailImage || project.image} alt={project.alt} /><div className="dialog-actions">{project.url && <a className="button button-dark" href={project.url} target="_blank" rel="noreferrer">体验产品 <Icon name="diagonal" size={16} /></a>}{project.pdf && <button className="button button-outline" onClick={() => { setPdf({ title: project.title + ' · 项目文档', src: project.pdf }); setProject(null); }}>阅读项目文档 <Icon name="arrow" size={16} /></button>}{project.mediaId && <button className="button button-dark" onClick={() => { setSelectedMedia(media.find(m => m.id === project.mediaId)); setProject(null); }}>播放代表作品 <Icon name="play" size={16} /></button>}</div>{project.url && <p className="dialog-note">产品托管于 Render，首次唤醒可能需要约 30 秒。</p>}</div></Modal>}
