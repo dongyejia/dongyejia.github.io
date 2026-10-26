@@ -43,3 +43,34 @@
 .stage-faruxue .object-back{width:53%;height:65%;top:13%;left:4%}.stage-faruxue .object-front{height:57%;width:79%;top:32%;right:-4%}
 @media(min-width:701px) and (max-width:1100px){.aigc-grid{display:flex;overflow-x:auto;gap:18px;padding-bottom:20px;scroll-snap-type:x proximity}.aigc-grid .project-card{flex:0 0 30%;min-width:260px;scroll-snap-align:start}.aigc-grid .spatial-stage{height:290px}}
 @media(max-width:700px){.aigc-grid .spatial-stage{height:310px}.aigc-grid .project-info h3{font-size:20px}}
+
+/* Mobile layout must follow the viewport, while the contact page grows with its QR. */
+html,body{overflow-x:clip}
+.contact-content{height:auto}
+.wechat-card{flex-shrink:0}
+.wechat-card img{aspect-ratio:1072/1416;object-fit:contain}
+@media(max-width:700px){
+  .hero{height:auto;min-height:100svh;max-height:none}
+  .hero-content{width:calc(100% - 40px);padding-top:110px;padding-bottom:145px}
+  .hero h1.hero-title{font-size:clamp(28px,9.5vw,52px);max-width:100%;line-height:1.5;letter-spacing:0}
+  .hero-title-mask{width:max-content;max-width:100%}
+  .hero-title-mask:last-child{margin-left:16px}
+  .hero h1 .hero-title-second{letter-spacing:0}
+  .hero-eyebrow{flex-wrap:wrap;row-gap:8px}
+  .hero-intro{font-size:12px;letter-spacing:0}
+  .hero-actions{gap:20px;flex-wrap:wrap}
+  .hero-footer{bottom:28px}
+  .opening{height:100svh}
+  .opening-center{width:min(76%,300px)}
+  .opening-monogram{font-size:clamp(85px,26vw,130px)}
+  .opening-caption{font-size:8px;line-height:1.8;letter-spacing:.08em}
+  .opening-skip{bottom:calc(24px + env(safe-area-inset-bottom))}
+  .contact-content{height:auto;min-height:100svh;padding-top:35px}
+  .contact-main{flex:0 0 auto;min-width:0;padding:25px 0 42px}
+  .contact-main h2{font-size:clamp(42px,13vw,60px)}
+  .contact-layout{min-width:0;grid-template-columns:minmax(0,1fr);gap:30px}
+  .wechat-card{width:min(230px,100%);justify-self:center;transform:none}
+  .contact-content>footer{margin-top:auto;padding-bottom:85px}
+  .motion-controls{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));gap:5px}
+  .motion-controls .motion-toggle{padding:9px 10px;font-size:8px}
+}
